@@ -1,0 +1,178 @@
+{% extends 'ticket_system/base.html' %}
+
+{% block title %}Create New Ticket - Ticket Management System{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h1>
+            <i class="fas fa-plus-circle me-2"></i>Create New Ticket
+        </h1>
+        <p class="text-muted">Submit a new support request to the system</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header bg-light">
+                <h5 class="mb-0">Ticket Information</h5>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label for="id_title" class="form-label">Title</label>
+                        <input type="text" name="title" id="id_title" class="form-control {% if form.title.errors %}is-invalid{% endif %}" placeholder="Brief summary of your issue" required>
+                        {% if form.title.errors %}
+                        <div class="invalid-feedback">
+                            {{ form.title.errors.0 }}
+                        </div>
+                        {% else %}
+                        <div class="form-text">Provide a concise title that describes your issue</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="id_department" class="form-label">Department</label>
+                        <select name="department" id="id_department" class="form-select {% if form.department.errors %}is-invalid{% endif %}" required>
+                            <option value="">Select Department</option>
+                            {% for department in departments %}
+                            <option value="{{ department.id }}">{{ department.name }}</option>
+                            {% endfor %}
+                        </select>
+                        {% if form.department.errors %}
+                        <div class="invalid-feedback">
+                            {{ form.department.errors.0 }}
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="id_category" class="form-label">Category</label>
+                            <select name="category" id="id_category" class="form-select {% if form.category.errors %}is-invalid{% endif %}" disabled required>
+                                <option value="">Select Category</option>
+                            </select>
+                            {% if form.category.errors %}
+                            <div class="invalid-feedback">
+                                {{ form.category.errors.0 }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="id_subcategory" class="form-label">Subcategory</label>
+                            <select name="subcategory" id="id_subcategory" class="form-select {% if form.subcategory.errors %}is-invalid{% endif %}" disabled>
+                                <option value="">Select Subcategory</option>
+                            </select>
+                            {% if form.subcategory.errors %}
+                            <div class="invalid-feedback">
+                                {{ form.subcategory.errors.0 }}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="id_priority" class="form-label">Priority</label>
+                        <select name="priority" id="id_priority" class="form-select {% if form.priority.errors %}is-invalid{% endif %}" required>
+                            <option value="low">Low</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="high">High</option>
+                            <option value="critical">Critical</option>
+                        </select>
+                        {% if form.priority.errors %}
+                        <div class="invalid-feedback">
+                            {{ form.priority.errors.0 }}
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="id_description" class="form-label">Description</label>
+                        <textarea name="description" id="id_description" class="form-control {% if form.description.errors %}is-invalid{% endif %}" rows="6" placeholder="Detailed description of your issue" required></textarea>
+                        {% if form.description.errors %}
+                        <div class="invalid-feedback">
+                            {{ form.description.errors.0 }}
+                        </div>
+                        {% else %}
+                        <div class="form-text">Please provide as much detail as possible including any error messages, steps to reproduce, etc.</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="id_attachments" class="form-label">Attachments</label>
+                        <input type="file" name="attachments" id="id_attachments" class="form-control" multiple>
+                        <div class="form-text">You can upload multiple files (images, documents, etc.) to help explain your issue. Max 5MB per file.</div>
+                    </div>
+                    
+                    <div class="d-flex">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane me-1"></i>Submit Ticket
+                        </button>
+                        <a href="{% url 'ticket_system:ticket_list' %}" class="btn btn-outline-secondary ms-2">
+                            <i class="fas fa-times me-1"></i>Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card mb-4">
+            <div class="card-header bg-light">
+                <h5 class="mb-0">
+                    <i class="fas fa-info-circle me-2"></i>Ticket Guidelines
+                </h5>
+            </div>
+            <div class="card-body">
+                <h6 class="card-subtitle mb-3">How to Submit an Effective Ticket</h6>
+                <ul class="mb-0">
+                    <li class="mb-2">Be clear and specific about the issue you're experiencing</li>
+                    <li class="mb-2">Include steps to reproduce the problem</li>
+                    <li class="mb-2">Add any error messages you've received</li>
+                    <li class="mb-2">Mention when the issue started occurring</li>
+                    <li>Attach screenshots or relevant files if applicable</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header bg-light">
+                <h5 class="mb-0">
+                    <i class="fas fa-lightbulb me-2"></i>Priority Levels
+                </h5>
+            </div>
+            <div class="card-body p-0">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <h6><span class="badge priority-low me-2">Low</span> Priority</h6>
+                        <p class="mb-0 small">Minor issues that don't impact your work. Typically addressed within 48-72 hours.</p>
+                    </li>
+                    <li class="list-group-item">
+                        <h6><span class="badge priority-medium me-2">Medium</span> Priority</h6>
+                        <p class="mb-0 small">Issues that cause inconvenience but have workarounds. Typically addressed within 24-48 hours.</p>
+                    </li>
+                    <li class="list-group-item">
+                        <h6><span class="badge priority-high me-2">High</span> Priority</h6>
+                        <p class="mb-0 small">Issues that significantly impact your work. Typically addressed within 4-24 hours.</p>
+                    </li>
+                    <li class="list-group-item">
+                        <h6><span class="badge priority-critical me-2">Critical</span> Priority</h6>
+                        <p class="mb-0 small">Issues that completely prevent work or affect multiple users. Typically addressed within 1-4 hours.</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // The dynamic form functionality is in main.js
+</script>
+{% endblock %}

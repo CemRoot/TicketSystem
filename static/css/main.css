@@ -1,0 +1,240 @@
+/* Main Styles for Ticket Management System */
+
+/* General Styles */
+body {
+    font-family: 'Roboto', 'Segoe UI', sans-serif;
+    background-color: #f8f9fa;
+    color: #212529;
+}
+
+/* Dashboard Cards */
+.dashboard-card {
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+}
+
+.dashboard-card .card-body {
+    padding: 1.5rem;
+}
+
+.dashboard-card .card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Ticket Status Colors */
+.status-new {
+    background-color: #cfe2ff;
+    color: #084298;
+}
+
+.status-in-progress {
+    background-color: #fff3cd;
+    color: #664d03;
+}
+
+.status-pending {
+    background-color: #d1e7dd;
+    color: #0f5132;
+}
+
+.status-resolved {
+    background-color: #d1e7dd;
+    color: #0f5132;
+}
+
+.status-closed {
+    background-color: #f8d7da;
+    color: #842029;
+}
+
+/* Priority Colors */
+.priority-low {
+    background-color: #d1e7dd;
+    color: #0f5132;
+}
+
+.priority-medium {
+    background-color: #fff3cd;
+    color: #664d03;
+}
+
+.priority-high {
+    background-color: #f8d7da;
+    color: #842029;
+}
+
+.priority-critical {
+    background-color: #ff6b6b;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* Ticket Detail */
+.ticket-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.ticket-info-item {
+    margin-bottom: 0.75rem;
+}
+
+.ticket-description {
+    background-color: #fff;
+    border-radius: 0.25rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-left: 4px solid #0d6efd;
+}
+
+/* Comments */
+.comment-container {
+    margin-bottom: 1.5rem;
+}
+
+.comment {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.comment-internal {
+    background-color: #fff3cd;
+    border-left: 4px solid #ffc107;
+}
+
+.comment-header {
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 0.5rem;
+}
+
+.comment-user {
+    font-weight: bold;
+}
+
+.comment-time {
+    color: #6c757d;
+    font-size: 0.875rem;
+}
+
+/* Notifications */
+.notification-dropdown {
+    width: 320px;
+    padding: 0;
+}
+
+.notification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.notification-list {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.notification-item {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.notification-unread {
+    background-color: #f0f7ff;
+}
+
+.notification-time {
+    font-size: 0.75rem;
+    color: #6c757d;
+}
+
+/* AI Badge */
+.ai-analysis-badge {
+    cursor: pointer;
+}
+
+.ai-tooltip {
+    max-width: 300px;
+}
+
+/* Custom Forms */
+.form-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.form-header i {
+    font-size: 2.5rem;
+    color: #0d6efd;
+    margin-bottom: 1rem;
+}
+
+/* Admin Panels */
+.stats-card {
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.stats-card .stats-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.stats-card .stats-number {
+    font-size: 1.75rem;
+    font-weight: bold;
+}
+
+.stats-card .stats-label {
+    font-size: 0.875rem;
+    color: #6c757d;
+}
+
+/* SLA Indicators */
+.sla-breach {
+    background-color: rgba(255, 107, 107, 0.2);
+}
+
+.sla-warning {
+    background-color: rgba(255, 193, 7, 0.2);
+}
+
+/* Loading Spinner */
+.loading-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .form-card {
+        padding: 1.5rem;
+    }
+    
+    .notification-dropdown {
+        width: 290px;
+    }
+}

@@ -1,0 +1,203 @@
+{% extends 'ticket_system/base.html' %}
+
+{% block title %}Edit Profile - Ticket Management System{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-8">
+        <h1>
+            <i class="fas fa-user-edit me-2"></i>Edit Profile
+        </h1>
+    </div>
+    <div class="col-md-4 text-md-end">
+        <a href="{% url 'profile' %}" class="btn btn-outline-primary">
+            <i class="fas fa-arrow-left me-1"></i>Back to Profile
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card mb-4">
+            <div class="card-header bg-light">
+                <h5 class="mb-0">
+                    <i class="fas fa-user me-2"></i>Basic Information
+                </h5>
+            </div>
+            <div class="card-body">
+                <form method="post" action="{% url 'edit_profile' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {{ form.non_field_errors }}
+                        </div>
+                    {% endif %}
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="{{ form.first_name.id_for_label }}" class="form-label">First Name</label>
+                                {{ form.first_name }}
+                                {% if form.first_name.errors %}
+                                    <div class="text-danger">
+                                        {{ form.first_name.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="{{ form.last_name.id_for_label }}" class="form-label">Last Name</label>
+                                {{ form.last_name }}
+                                {% if form.last_name.errors %}
+                                    <div class="text-danger">
+                                        {{ form.last_name.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.email.id_for_label }}" class="form-label">Email Address</label>
+                        {{ form.email }}
+                        {% if form.email.errors %}
+                            <div class="text-danger">
+                                {{ form.email.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.phone.id_for_label }}" class="form-label">Phone Number</label>
+                        {{ form.phone }}
+                        {% if form.phone.errors %}
+                            <div class="text-danger">
+                                {{ form.phone.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    {% if user.profile.role.is_admin %}
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="{{ form.department.id_for_label }}" class="form-label">Department</label>
+                                {{ form.department }}
+                                {% if form.department.errors %}
+                                    <div class="text-danger">
+                                        {{ form.department.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="{{ form.role.id_for_label }}" class="form-label">Role</label>
+                                {{ form.role }}
+                                {% if form.role.errors %}
+                                    <div class="text-danger">
+                                        {{ form.role.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="mb-3">
+                        <label class="form-label">Department</label>
+                        <input type="text" class="form-control" value="{{ user.profile.department.name }}" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Role</label>
+                        <input type="text" class="form-control" value="{{ user.profile.role.name }}" disabled>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.avatar.id_for_label }}" class="form-label">Profile Picture</label>
+                        {{ form.avatar }}
+                        {% if form.avatar.errors %}
+                            <div class="text-danger">
+                                {{ form.avatar.errors }}
+                            </div>
+                        {% endif %}
+                        {% if user.profile.avatar %}
+                            <div class="current-image mt-2">
+                                <img src="{{ user.profile.avatar.url }}" alt="Current profile picture" class="img-thumbnail" style="max-width: 100px;">
+                                <p class="form-text text-muted">Current profile picture</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.bio.id_for_label }}" class="form-label">Bio</label>
+                        {{ form.bio }}
+                        {% if form.bio.errors %}
+                            <div class="text-danger">
+                                {{ form.bio.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <div class="form-check">
+                            {{ form.email_notifications }}
+                            <label class="form-check-label" for="{{ form.email_notifications.id_for_label }}">
+                                Receive email notifications
+                            </label>
+                            {% if form.email_notifications.errors %}
+                                <div class="text-danger">
+                                    {{ form.email_notifications.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-1"></i>Save Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card mb-4">
+            <div class="card-header bg-light">
+                <h5 class="mb-0">
+                    <i class="fas fa-lock me-2"></i>Account Security
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-4">
+                    <h6>Password Management</h6>
+                    <p>Change your password or set up additional security methods.</p>
+                    <a href="{% url 'change_password' %}" class="btn btn-outline-primary">
+                        <i class="fas fa-key me-1"></i>Change Password
+                    </a>
+                </div>
+                
+                <div class="mb-4">
+                    <h6>Account Activity</h6>
+                    <p>Review your account login activity and recent changes.</p>
+                    <a href="#" class="btn btn-outline-secondary">
+                        <i class="fas fa-history me-1"></i>View Activity
+                    </a>
+                </div>
+                
+                <div class="mb-4">
+                    <h6>Notification Settings</h6>
+                    <p>Manage how you receive notifications from the system.</p>
+                    <a href="#" class="btn btn-outline-secondary">
+                        <i class="fas fa-bell me-1"></i>Manage Notifications
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

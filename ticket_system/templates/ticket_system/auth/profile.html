@@ -1,0 +1,198 @@
+{% extends 'ticket_system/base.html' %}
+
+{% block title %}My Profile - Ticket Management System{% endblock %}
+
+{% block page_title %}My Profile{% endblock %}
+
+{% block breadcrumbs %}
+<li class="breadcrumb-item active">Profile</li>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-4">
+        <div class="card mb-4">
+            <div class="card-body text-center">
+                {% if user.profile.profile_picture %}
+                <img src="{{ user.profile.profile_picture.url }}" alt="Profile Picture" class="rounded-circle img-fluid profile-picture mb-3">
+                {% else %}
+                <div class="profile-avatar-placeholder mb-3">
+                    <i class="fas fa-user-circle fa-6x text-secondary"></i>
+                </div>
+                {% endif %}
+                <h5 class="mb-1">{{ user.get_full_name }}</h5>
+                <p class="text-muted">{{ user.username }}</p>
+                <p class="mb-2">
+                    <span class="badge bg-primary">{{ user.profile.role.name }}</span>
+                    {% if user.profile.department %}
+                    <span class="badge bg-secondary">{{ user.profile.department.name }}</span>
+                    {% endif %}
+                </p>
+                <div class="d-grid gap-2 col-8 mx-auto">
+                    <a href="{% url 'edit_profile' %}" class="btn btn-primary">
+                        <i class="fas fa-edit me-2"></i>Edit Profile
+                    </a>
+                    <a href="{% url 'change_password' %}" class="btn btn-outline-secondary">
+                        <i class="fas fa-key me-2"></i>Change Password
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i>Account Information</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <div class="text-muted">Account Status</div>
+                    <div>
+                        {% if user.is_active %}
+                        <span class="text-success"><i class="fas fa-check-circle me-1"></i>Active</span>
+                        {% else %}
+                        <span class="text-danger"><i class="fas fa-times-circle me-1"></i>Inactive</span>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="text-muted">Member Since</div>
+                    <div>{{ user.date_joined|date:"d M Y" }}</div>
+                </div>
+                <div class="mb-3">
+                    <div class="text-muted">Last Login</div>
+                    <div>{{ user.last_login|date:"d M Y H:i" }}</div>
+                </div>
+                <div>
+                    <div class="text-muted">Email Address</div>
+                    <div>{{ user.email }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-8">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-user me-2"></i>Profile Details</h5>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-sm-3">
+                        <p class="mb-0 text-muted">Full Name</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <p class="mb-0">{{ user.get_full_name }}</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row mb-3">
+                    <div class="col-sm-3">
+                        <p class="mb-0 text-muted">Username</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <p class="mb-0">{{ user.username }}</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row mb-3">
+                    <div class="col-sm-3">
+                        <p class="mb-0 text-muted">Email</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <p class="mb-0">{{ user.email }}</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row mb-3">
+                    <div class="col-sm-3">
+                        <p class="mb-0 text-muted">Phone</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <p class="mb-0">{{ user.profile.phone_number|default:"Not provided" }}</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row mb-3">
+                    <div class="col-sm-3">
+                        <p class="mb-0 text-muted">Department</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <p class="mb-0">{{ user.profile.department.name|default:"Not assigned" }}</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row mb-3">
+                    <div class="col-sm-3">
+                        <p class="mb-0 text-muted">Role</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <p class="mb-0">{{ user.profile.role.name|default:"Not assigned" }}</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <p class="mb-0 text-muted">Location</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <p class="mb-0">{{ user.profile.location|default:"Not provided" }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-chart-bar me-2"></i>Activity Summary</h5>
+            </div>
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-md-4">
+                        <div class="stat-card mb-3">
+                            <div class="stat-value">{{ ticket_stats.total_tickets|default:"0" }}</div>
+                            <div class="stat-title">Total Tickets</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stat-card mb-3">
+                            <div class="stat-value">{{ ticket_stats.open_tickets|default:"0" }}</div>
+                            <div class="stat-title">Open Tickets</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stat-card mb-3">
+                            <div class="stat-value">{{ ticket_stats.resolved_tickets|default:"0" }}</div>
+                            <div class="stat-title">Resolved Tickets</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-4">
+                    <h6 class="mb-3">Recent Activity</h6>
+                    {% if activities %}
+                    <div class="activity-timeline">
+                        {% for activity in activities %}
+                        <div class="activity-item">
+                            <div class="activity-content">
+                                <div class="activity-icon bg-{{ activity.level }}">
+                                    <i class="fas fa-{{ activity.get_icon }}"></i>
+                                </div>
+                                <div class="activity-details">
+                                    <div class="activity-title">{{ activity.action }}</div>
+                                    <div class="activity-subtitle">{{ activity.created_at|date:"d M Y H:i" }}</div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="text-center py-3">
+                        <p class="text-muted">No recent activity found</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
