@@ -7,7 +7,7 @@ The Ticket Management System implementation necessitates a multi-tier architectu
 ## I. PREREQUISITE INFRASTRUCTURE CONFIGURATION
 
 ### A. Computational Environment Requirements
-- Python 3.9+ runtime environment
+- Python 3.11+ runtime environment
 - PostgreSQL 13+ database system
 - Redis 6+ in-memory data structure store
 - Nginx HTTP server with SSL termination capabilities

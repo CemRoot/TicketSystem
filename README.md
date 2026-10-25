@@ -7,7 +7,7 @@
 A comprehensive ticket management system built with Django, designed for managing support tickets, task assignments, and workflow automation across departments.
 
 [![Django](https://img.shields.io/badge/Django-4.2.10-092E20?style=flat&logo=django&logoColor=white)](https://www.djangoproject.com/)
-[![Python](https://img.shields.io/badge/Python-3.8+-3776AB?style=flat&logo=python&logoColor=white)](https://www.python.org/)
+[![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=flat&logo=python&logoColor=white)](https://www.python.org/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-316192?style=flat&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
 [![Celery](https://img.shields.io/badge/Celery-5.5.1-37814A?style=flat&logo=celery&logoColor=white)](https://docs.celeryproject.org/)
 [![Redis](https://img.shields.io/badge/Redis-5.2.1-DC382D?style=flat&logo=redis&logoColor=white)](https://redis.io/)
@@ -60,7 +60,7 @@ This ticket system provides a robust, enterprise-ready platform for handling sup
 
 | Category | Technologies |
 |----------|-------------|
-| **Backend Framework** | Django 4.2.10, Python 3.8+ |
+| **Backend Framework** | Django 4.2.10, Python 3.11+ |
 | **API Framework** | Django REST Framework 3.16.0 |
 | **Database** | PostgreSQL |
 | **Caching & Queue** | Redis 5.2.1, Celery 5.5.1 |
@@ -75,7 +75,7 @@ This ticket system provides a robust, enterprise-ready platform for handling sup
 
 Before you begin, ensure you have the following installed:
 
-- ![Python](https://img.shields.io/badge/Python-3.8+-3776AB?style=flat&logo=python&logoColor=white) Python 3.8 or higher
+- ![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=flat&logo=python&logoColor=white) Python 3.11 or higher
 - ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Latest-316192?style=flat&logo=postgresql&logoColor=white) PostgreSQL
 - ![Redis](https://img.shields.io/badge/Redis-Latest-DC382D?style=flat&logo=redis&logoColor=white) Redis
 - Google Cloud Platform account (for AI features - optional)
